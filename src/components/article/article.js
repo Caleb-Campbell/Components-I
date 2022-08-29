@@ -87,14 +87,76 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Yup its working',
+    date: 'Jan 1st, 2019',
+    firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
+  
 ];
 
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
+*/
 
+function articleMaker (articleObj){
+  
+  const articleWrapper = document.createElement('div')
+  const title = document.createElement('h2')
+  const date = document.createElement('p')
+  const firstParagraph = document.createElement("p")
+  const secondParagraph = document.createElement("p")
+  const thirdParagraph = document.createElement("p")
+  const expandButton  = document.createElement('span')
+
+  expandButton.classList.add('expandButton')
+  date.classList.add('date')
+  articleWrapper.classList.add('article')
+
+  articleWrapper.appendChild(title)
+  articleWrapper.appendChild(date)
+  articleWrapper.appendChild(firstParagraph)
+  articleWrapper.appendChild(secondParagraph)
+  articleWrapper.appendChild(thirdParagraph)
+  articleWrapper.appendChild(expandButton)
+  
+  title.textContent = articleObj.title
+  date.textContent = articleObj.date
+  firstParagraph.textContent = articleObj.firstParagraph
+  secondParagraph.textContent = articleObj.secondParagraph
+  thirdParagraph.textContent = articleObj.thirdParagraph
+  expandButton.textContent = '+'
+  expandButton.style.fontSize = '2em'
+
+  expandButton.addEventListener('click', ()=> {
+    articleWrapper.classList.toggle('article-open')
+
+  
+  })
+
+  return articleWrapper
+
+}
+
+const articles = data.forEach(article => {
+  document.querySelector('.articles').appendChild(articleMaker(article))
+})
+
+/*
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
